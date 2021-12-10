@@ -12,6 +12,20 @@ In very short:
 
 > When developing error boundary components and styling/testing how they look, this is an extremely annoying feature. It slows down development and adds no value. You should allow developers to decide whether they want this feature turned on or not
 
+## Why not *just* disable overlay?
+
+Meaning, you always can simply do this:
+```js
+import { stopReportingRuntimeErrors } from "react-error-overlay"
+stopReportingRuntimeErrors()
+```
+which will disable overlay once and for all.
+
+Well, because overlay is handy for *unexpected* errors. It works great on it's own.
+But when you know for sure that in some specific place you don't need overlay (for example, you **want** error from API to be caught by error boundary, this is an expected flow) – you don't have options for that. All or nothing.
+
+That's where this solution comes into play.
+
 ## Demo
 
 [Here](https://github.com/jeron-diovis/react-app-error-boundary-demo) is a repo where you can see this package in action.
