@@ -1,6 +1,6 @@
 {
   "name": "react-app-error-boundary",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Allows to opt-out of react-error-overlay in your react-app",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
