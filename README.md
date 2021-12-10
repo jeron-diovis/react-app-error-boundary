@@ -1,6 +1,6 @@
 # react-app-error-boundary
 
-Allows you to turn `react-error-overlay` in your react-app from a mandatory-thing-you-never-asked-for into a handy-opt-in-feature.
+Allows you to turn `react-error-overlay` in your react-app from a *mandatory-thing-you-never-asked-for* into a *handy-opt-in-feature*.
 
 Inspired by [this SO question](https://stackoverflow.com/questions/46589819/disable-error-overlay-in-development-mode).
 
@@ -41,16 +41,16 @@ setupReactAppOverlayErrorHandler()
 import { ErrorBoundary } from 'react-app-error-boundary'
 
 <ErrorBoundary>
-  <ComponentThatMayError />
+  <DangerousComponent />
 </ErrorBoundary>
 ```
 
-That's it. With this configuration, if `<ComponentThatMayError />` will throw, you should observe following:
+That's it. With this configuration, if `<DangerousComponent />` will throw, you should observe following:
 * error message, written in red, in place of broken component
 * error log in console, starting with `Following error has been caught by <ErrorBoundary> component...`
 * **no `react-error-overlay` displayed!**
 
-### Additional configuration
+## Additional configuration
 
 For general usage of `ErrorBoundary` component, see [documentation in original repo](https://github.com/bvaughn/react-error-boundary#usage). All original props are available here too. 
 Other stuff from repo also is re-exported, so you may also use extra features like `useErrorHandler` hook.
@@ -85,7 +85,7 @@ If you want to absolutely suppress caught errors, you may set it for particular 
 <ErrorBoundary logCaughtErrors={false}>...</ErrorBoundary>
 ```
 
-#### `setDefaultErrorBoundaryOptions`
+#### `setDefaultErrorBoundaryOptions(options)`
 
 Default behavior of `ErrorBoundary` can be changed globally:
 ```js
