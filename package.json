@@ -12,7 +12,8 @@
     "react-app",
     "error",
     "error-boundary",
-    "overlay"
+    "overlay",
+    "rewire"
   ],
   "author": "Jeron Diovis <void.jeron.diovis@gmail.com>",
   "repository": {

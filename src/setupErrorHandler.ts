@@ -5,18 +5,20 @@ const DEFAULT_CRA_OVERLAY_SELECTOR =
 
 const STYLES_ID = 'suppress-cra-overlay-styles'
 
+// ---
+
 function getStyles() {
   return document.getElementById(STYLES_ID)
 }
 
-function createStyles(cra_overlay_selector: string) {
+function createStyles(craOverlaySelector: string) {
   if (getStyles() !== null) return
 
   // Use styles instead of accessing overlay element directly, because overlay is created dynamically,
   // and won't exist at moment when our handler catches error
   const s = document.createElement('style')
   s.id = STYLES_ID
-  s.innerHTML = `${cra_overlay_selector} { display: none }`
+  s.innerHTML = `${craOverlaySelector} { display: none; !important }`
   document.head.appendChild(s)
 }
 
@@ -27,15 +29,22 @@ function allowCRAOverlay(allow: boolean) {
   styles.disabled = allow
 }
 
+// ---
+
 const CAPTURED_ERROR_FLAG_NAME = '@@/CRA_CAPTURED'
 const SUPPRESSED_ERROR_FLAG_NAME = '@@/CRA_OVERLAY_IGNORE'
 
-export function setupReactAppOverlayErrorHandler(
-  cra_overlay_selector: string = DEFAULT_CRA_OVERLAY_SELECTOR
-) {
+// ---
+
+interface ErrorHandlerOptions {
+  craOverlaySelector?: string
+}
+
+export function setupReactAppOverlayErrorHandler(options: ErrorHandlerOptions = {}) {
   if (!INTERCEPT_ENABLED) return
 
-  createStyles(cra_overlay_selector)
+  const { craOverlaySelector = DEFAULT_CRA_OVERLAY_SELECTOR } = options
+  createStyles(craOverlaySelector)
 
   window.addEventListener('error', e => {
     const { error } = e

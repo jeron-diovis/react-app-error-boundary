@@ -25,9 +25,14 @@ type ErrorBoundaryProps =
   | ErrorBoundaryPropsWithRender
   | MakePartial<ErrorBoundaryPropsWithComponent, 'FallbackComponent'>
 
-type CustomErrorBoundaryProps = {
-  log?: boolean
+type CustomErrorBoundaryOptions = {
+  logCaughtErrors?: boolean
   allowDevErrorOverlay?: boolean
+}
+
+let OPTIONS_DEFAULTS: Required<CustomErrorBoundaryOptions> = {
+  logCaughtErrors: true,
+  allowDevErrorOverlay: false,
 }
 
 const logCaughtError = (error: Error) => {
@@ -39,7 +44,7 @@ const logCaughtError = (error: Error) => {
   }
 }
 
-export const ErrorBoundary: React.FC<ErrorBoundaryProps & CustomErrorBoundaryProps> =
+export const ErrorBoundary: React.FC<ErrorBoundaryProps & CustomErrorBoundaryOptions> =
   props => {
     const {
       children,
@@ -47,8 +52,8 @@ export const ErrorBoundary: React.FC<ErrorBoundaryProps & CustomErrorBoundaryPro
       fallbackRender,
       fallback,
       onError,
-      allowDevErrorOverlay = false,
-      log = true,
+      allowDevErrorOverlay = OPTIONS_DEFAULTS.allowDevErrorOverlay,
+      logCaughtErrors = OPTIONS_DEFAULTS.logCaughtErrors,
       ...rest
     } = props
 
@@ -57,11 +62,11 @@ export const ErrorBoundary: React.FC<ErrorBoundaryProps & CustomErrorBoundaryPro
         const [error] = args
         if (!allowDevErrorOverlay) {
           suppressCaughtOverlayError(error)
-          if (log) logCaughtError(error)
+          if (logCaughtErrors) logCaughtError(error)
         }
         onError?.(...args)
       },
-      [onError, allowDevErrorOverlay, log]
+      [onError, allowDevErrorOverlay, logCaughtErrors]
     )
 
     if (fallback) {
@@ -101,4 +106,8 @@ export const ErrorBoundary: React.FC<ErrorBoundaryProps & CustomErrorBoundaryPro
 
 export function setDefaultErrorBoundaryFallback(component: typeof DefaultFallback) {
   DefaultFallback = component
+}
+
+export function setDefaultErrorBoundaryOptions(defaults: CustomErrorBoundaryOptions) {
+  Object.assign(OPTIONS_DEFAULTS, defaults)
 }
