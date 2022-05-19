@@ -48,6 +48,7 @@ export function setupReactAppOverlayErrorHandler(options: ErrorHandlerOptions = 
 
   window.addEventListener('error', e => {
     const { error } = e
+    if (error === undefined || error === null) return
     if (!error[CAPTURED_ERROR_FLAG_NAME]) {
       error[CAPTURED_ERROR_FLAG_NAME] = true
 
