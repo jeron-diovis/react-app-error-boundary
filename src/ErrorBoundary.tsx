@@ -44,8 +44,7 @@ const logCaughtError = (error: Error) => {
   }
 }
 
-export const ErrorBoundary: React.FC<ErrorBoundaryProps & CustomErrorBoundaryOptions> =
-  props => {
+export function ErrorBoundary(props: ErrorBoundaryProps & CustomErrorBoundaryOptions & { children: React.ReactNode }) {
     const {
       children,
       FallbackComponent = DefaultFallback,
