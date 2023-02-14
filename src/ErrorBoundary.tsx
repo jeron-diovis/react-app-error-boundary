@@ -20,12 +20,12 @@ let DefaultFallback = (props: FallbackProps) => {
 
 type MakePartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
-type ErrorBoundaryProps =
+export type BaseErrorBoundaryProps =
   | ErrorBoundaryPropsWithFallback
   | ErrorBoundaryPropsWithRender
   | MakePartial<ErrorBoundaryPropsWithComponent, 'FallbackComponent'>
 
-type CustomErrorBoundaryOptions = {
+export type CustomErrorBoundaryOptions = {
   logCaughtErrors?: boolean
   allowDevErrorOverlay?: boolean
 }
@@ -44,7 +44,9 @@ const logCaughtError = (error: Error) => {
   }
 }
 
-export function ErrorBoundary(props: ErrorBoundaryProps & CustomErrorBoundaryOptions & { children: React.ReactNode }) {
+export type ErrorBoundaryProps = BaseErrorBoundaryProps & CustomErrorBoundaryOptions & { children: React.ReactNode }
+
+export function ErrorBoundary(props: ErrorBoundaryProps) {
     const {
       children,
       FallbackComponent = DefaultFallback,
