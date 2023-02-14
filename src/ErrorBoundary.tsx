@@ -31,7 +31,7 @@ type CustomErrorBoundaryOptions = {
 }
 
 let OPTIONS_DEFAULTS: Required<CustomErrorBoundaryOptions> = {
-  logCaughtErrors: true,
+  logCaughtErrors: false,
   allowDevErrorOverlay: false,
 }
 
